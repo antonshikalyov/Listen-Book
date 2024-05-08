@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name" translatable="false">ListenBook</string>
+    <string name="language">Русский</string>
+    <string name="now_playing">СЕЙЧАС ИГРАЕТ</string>
+    <string name="duration_ru">Длительность: </string>
+    <string name="readed">      Прочитано: </string>
+
+    <string name="sidebar_player">Плеер</string>
+    <string name="sidebar_books">Книги</string>
+    <string name="sidebar_bookmarks">Закладки</string>
+    <string name="sidebar_history">История</string>
+    <string name="sidebar_statistics">Статистика</string>
+    <string name="sidebar_settings">Настройки</string>
+    <string name="sidebar_help">Помощь</string>
+    <string name="sidebar_aps">Приложения --</string>
+    <string name="sidebar_about_program">О программе</string>
+
+    <string name="toolbar_library">Библиотека</string>
+    <string name="toolbar_find_books">Поиск книг</string>
+    <string name="toolbar_bookmark">Закладки</string>
+
+    <string name="activity_bookmarks_info">Все ваши закладки будут видны здесь.</string>
+    <string name="activity_history">История ваших действий будет видна здесь.</string>
+    <string name="activity_statistics_all_time">За все время</string>
+    <string name="activity_statistics_green">Период</string>
+    <string name="activity_statistics_red">Общее время прослушивания</string>
+    <string name="activity_statistics_purple">Дольше всего слушали за день</string>
+    <string name="activity_statistics_orange">В среднем в день</string>
+    <string name="activity_statistics_overhead">Прослушано</string>
+    <string name="activity_statistics_session">Сессия</string>
+    <string name="activity_settings_interface">Интерфейс</string>
+    <string name="activity_settings_interface_1">Продолжить чтение на старте</string>
+    <string name="activity_settings_interface_2">Разрешить переворот экрана</string>
+    <string name="activity_settings_interface_3">Разрешить альбомную ориентацию</string>
+    <string name="activity_settings_interface_4">Нижний колонтитул таблицы</string>
+    <string name="activity_settings_interface_5">Цветовая тема</string>
+    <string name="activity_settings_interface_6">Язык интерфейса</string>
+    <string name="activity_settings_player_1">Авто-пауза на нулевой громкости</string>
+    <string name="activity_settings_player_2">Для пульта наушников и Bluetooth</string>
+    <string name="activity_settings_player_3">Авто перемотка назад</string>
+    <string name="activity_settings_player_4">Аудио движок</string>
+    <string name="activity_settings_player_5">Скорость перемотки</string>
+    <string name="activity_settings_player_6">Смешивание с навигацией</string>
+    <string name="activity_settings_player_7">Предпочтительная кодировка тегов</string>
+    <string name="cancel">Отмена</string>
+    <string name="light_theme">Светлая</string>
+    <string name="dark_theme">Темная</string>
+    <string name="auto_theme">Система</string>
+</resources>
