@@ -1,6 +1,0 @@
-com.example.listenbook.test.app-annotation-experimental-1.3.0-0 C:\Users\anton\.gradle\caches\transforms-3\075bf41ce814d4260f02e042700ce999\transformed\annotation-experimental-1.3.0\res
-com.example.listenbook.test.app-core-1.5.0-1 C:\Users\anton\.gradle\caches\transforms-3\30568b380fcbd6c472dec8793871322c\transformed\core-1.5.0\res
-com.example.listenbook.test.app-androidTest-2 D:\AndroidStudioProjects\reserve\audiobook\ListenBook\app\build\generated\res\resValues\androidTest\debug
-com.example.listenbook.test.app-mergeDebugAndroidTestResources-3 D:\AndroidStudioProjects\reserve\audiobook\ListenBook\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.example.listenbook.test.app-mergeDebugAndroidTestResources-4 D:\AndroidStudioProjects\reserve\audiobook\ListenBook\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.example.listenbook.test.app-merged_res-5 D:\AndroidStudioProjects\reserve\audiobook\ListenBook\app\build\intermediates\merged_res\debugAndroidTest

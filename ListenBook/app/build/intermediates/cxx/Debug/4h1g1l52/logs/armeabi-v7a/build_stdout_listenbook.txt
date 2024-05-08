@@ -1,2 +1,0 @@
-ninja: Entering directory `D:\AndroidStudioProjects\reserve\audiobook\ListenBook\app\.cxx\Debug\4h1g1l52\armeabi-v7a'
-ninja: no work to do.

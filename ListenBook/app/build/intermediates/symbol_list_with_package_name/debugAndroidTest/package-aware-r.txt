@@ -1,3 +1,0 @@
-com.example.listenbook.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
