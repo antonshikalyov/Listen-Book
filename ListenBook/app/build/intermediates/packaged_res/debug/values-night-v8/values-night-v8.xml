@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_control_buttons">#FF292c35</color>
+    <color name="background_main">#FF454d5a</color>
+    <color name="background_toolbar">#1e1f24</color>
+    <color name="background_top_card_view">#48292C35</color>
+    <color name="cardview_dark_background">#FF424242</color>
+    <color name="drawer_menu">#FF1e1f24</color>
+    <color name="progressBackgroundTint">#cccdc8</color>
+    <color name="progressTint">#FFd75e25</color>
+    <color name="progressTintVolume">#ffffff</color>
+    <color name="settingsCheck">#FF61646d</color>
+    <color name="textColor">#d8d9d4</color>
+    <color name="toolbarLibrary">#000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <style name="Theme.ListenBook" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        
+    </style>
+</resources>

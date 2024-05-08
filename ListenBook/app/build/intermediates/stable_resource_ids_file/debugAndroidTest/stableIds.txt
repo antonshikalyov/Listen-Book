@@ -1,0 +1,2 @@
+com.example.listenbook.test:style/WhiteBackgroundTheme = 0x7f010001
+com.example.listenbook.test:style/WhiteBackgroundDialogTheme = 0x7f010000

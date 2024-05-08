@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_bookmarks_info">Всі ваші закладки буде видно тут.</string>
+    <string name="activity_history">Історія ваших дій буде видно тут.</string>
+    <string name="activity_settings_interface">Інтерфейс</string>
+    <string name="activity_settings_interface_1">Продовжити читання на старті</string>
+    <string name="activity_settings_interface_2">Дозволити переворот екрану</string>
+    <string name="activity_settings_interface_3">Дозволити альбомну орієнтацію</string>
+    <string name="activity_settings_interface_4">Нижній колонтитул таблиці</string>
+    <string name="activity_settings_interface_5">Колірна тема</string>
+    <string name="activity_settings_interface_6">Мова інтерфейсу</string>
+    <string name="activity_settings_player_1">Авто-пауза на нульовій гучності</string>
+    <string name="activity_settings_player_2">Для пульта наушников и Bluetooth</string>
+    <string name="activity_settings_player_3">Авто перемотування назад</string>
+    <string name="activity_settings_player_4">Аудіо двигун</string>
+    <string name="activity_settings_player_5">Швидкість перемотування</string>
+    <string name="activity_settings_player_6">Змішування з навігацією</string>
+    <string name="activity_settings_player_7">Переважне кодування тегів</string>
+    <string name="activity_statistics_all_time">За весь час</string>
+    <string name="activity_statistics_green">Період</string>
+    <string name="activity_statistics_orange">У середньому на день</string>
+    <string name="activity_statistics_overhead">Прослухано</string>
+    <string name="activity_statistics_purple">Найдовше слухали за день</string>
+    <string name="activity_statistics_red">Загальний час прослуховування</string>
+    <string name="activity_statistics_session">Сесія</string>
+    <string name="auto_theme">Система</string>
+    <string name="cancel">Скасувати</string>
+    <string name="dark_theme">Темна</string>
+    <string name="duration_ru">Тривалість:</string>
+    <string name="language">Українська</string>
+    <string name="light_theme">Cвітла</string>
+    <string name="now_playing">ЗАРАЗ ГРАЄ</string>
+    <string name="readed">"      Прочитано:"</string>
+    <string name="sidebar_about_program">О додатку</string>
+    <string name="sidebar_aps">Додатки</string>
+    <string name="sidebar_bookmarks">Закладки</string>
+    <string name="sidebar_books">Книги</string>
+    <string name="sidebar_help">Допомога</string>
+    <string name="sidebar_history">Історія</string>
+    <string name="sidebar_player">Плеєр</string>
+    <string name="sidebar_settings">Налаштування</string>
+    <string name="sidebar_statistics">Статистика</string>
+    <string name="toolbar_bookmark">Закладки</string>
+    <string name="toolbar_find_books">Пошук книг</string>
+    <string name="toolbar_library">Бібліотека</string>
+</resources>
