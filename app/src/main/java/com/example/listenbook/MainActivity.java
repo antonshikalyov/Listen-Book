@@ -11,7 +11,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -93,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
+//        PlayPanelActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                Log.i("FINISH", "FFFFFFFF");
+//                PlayPanelActivity.nextChapter();
+//            }
+//        });
+
     ImageButton moreButton = findViewById(R.id.more_button);
     moreButton.setOnClickListener(v -> {
         AnimationMoreButton animationMoreButton = new AnimationMoreButton();
@@ -164,9 +174,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void resumeMusic(View view) {
-        ImageButton imageButton = findViewById(R.id.resumeButton);
-        PlayPanelActivity.resumeMusic(imageButton);
+        PlayPanelActivity.resumeMusic();
     }
+
+    public void nextChapter(View view) {
+        PlayPanelActivity.nextChapter();
+    }
+    public void previousChapter(View view) {
+        PlayPanelActivity.previousChapter();
+    }
+
 
     public void seekProgress(View view) {
         SeekBar seekBar = findViewById(R.id.simpleSeekBar);

@@ -17,23 +17,13 @@
             android:gravity="center">
             <include layout="@layout/toolbar_library" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center">
-
-            <include layout="@layout/item_library"/>
-            <include layout="@layout/item_library"/>
-        </LinearLayout>
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
-
-        </ListView>
+            android:numColumns="auto_fit"
+            android:columnWidth="200dp">
+        </GridView>
     </LinearLayout>
 
 

@@ -1,6 +1,8 @@
 package com.example.listenbook;
 
+import android.app.Activity;
 import android.content.Context;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
@@ -15,50 +17,105 @@ public class PlayPanelActivity {
 
     static boolean playButton = false;
     private static boolean isUserSeeking = false;
-    private static boolean isUserSeekingVolume = false;
 
     private static LinearLayout fullSongInformation;
     private static LinearLayout smallSongInformation;
     private static LinearLayout playButtonsLayout;
     static MediaPlayer mediaPlayer = new MediaPlayer();
-    static int duration = 0;
+    static AudioItem currentChapter;
+    static String[] chapters;
 
-    static TimingThread x;
+    private static TimingThread timingThread;
     public static MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
     public boolean playStatus() {
         return playButton;
     }
-
-    public void playMusic(Uri uri, Context context) {
-        x = (TimingThread) TimingThread.getThread();
+    
+    public static void playMusic(String path) {
+        if (timingThread == null) {
+            timingThread = new TimingThread();
+            timingThread.setDaemon(true);
+            timingThread.start();
+        }
         try {
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(context.getApplicationContext(), uri);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-            playButton = true;
-            x.runThread();
+            mediaPlayer.setDataSource(path);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(mp -> {
+                mediaPlayer.start();
+                playButton = false;
+                PlayPanelActivity.resumeMusic();
+            });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public static MediaPlayer myPlayer() {
-        return mediaPlayer;
-    }
-    public static void resumeMusic(ImageButton resumeButton) {
-        if (!playButton) {
-            mediaPlayer.start();
-            resumeButton.setImageResource(R.drawable.ic_pause);
-            playButton = true;
-            x.runThread();
-        } else {
-            mediaPlayer.pause();
-            resumeButton.setImageResource(R.drawable.ic_play);
-            playButton = false;
-            x.stopThread();
+    public static void resumeMusic() {
+        ImageButton resumeButton = playButtonsLayout.findViewById(R.id.resumeButton);
+        if (mediaPlayer != null) {
+            if (!playButton) {
+                mediaPlayer.start();
+                resumeButton.setImageResource(R.drawable.ic_pause);
+                playButton = true;
+            } else {
+                mediaPlayer.pause();
+                resumeButton.setImageResource(R.drawable.ic_play);
+                playButton = false;
+            }
         }
+    }
+
+
+    public static void nextChapter() {
+        int id = currentChapter.id + 1;
+        if (id < chapters.length) {
+            if (playButton) {
+                resumeMusic();
+            }
+            mediaPlayer.stop();
+            currentChapter = new AudioItem(id, chapters[id]);
+            Activity mainActivity = new MainActivity();
+            SongActivity.getInfoFromManifest(currentChapter.uri, mainActivity);
+            playMusic(chapters[id]);
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(currentChapter.uri);
+            TextView t = fullSongInformation.findViewById(R.id.sample_text);
+            t.setText(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE));
+        }
+    }
+
+    public static void previousChapter() {
+        int id = currentChapter.id - 1;
+        if (id >= 0) {
+            if (playButton) {
+                resumeMusic();
+            }
+            mediaPlayer.stop();
+            currentChapter = new AudioItem(id, chapters[id]);
+            Activity mainActivity = new MainActivity();
+            SongActivity.getInfoFromManifest(currentChapter.uri, mainActivity);
+            playMusic(chapters[id]);
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(currentChapter.uri);
+            TextView t = fullSongInformation.findViewById(R.id.sample_text);
+            t.setText(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE));
+        }
+    }
+
+    public static String convertMils(int totalDuration) {
+        int hours = totalDuration / (1000 * 60 * 60);
+        int minutes = (totalDuration % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = ((totalDuration % (1000 * 60 * 60)) % (1000 * 60)) / 1000;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+    public static void aboutSong(LinearLayout fullSongInformation,
+                                 LinearLayout smallSongInformation,
+                                 LinearLayout playButtonsLayout) {
+        PlayPanelActivity.fullSongInformation = fullSongInformation;
+        PlayPanelActivity.smallSongInformation = smallSongInformation;
+        PlayPanelActivity.playButtonsLayout = playButtonsLayout;
     }
 
     public static void seekBarDuration(SeekBar seekBar) {
@@ -96,6 +153,10 @@ public class PlayPanelActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 seekBar.setProgress(0);
+                int id = currentChapter.id + 1;
+                if (id < chapters.length) {
+                    PlayPanelActivity.nextChapter();
+                }
             }
         });
 
@@ -110,30 +171,13 @@ public class PlayPanelActivity {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
     }
 
-    public static String convertMils(int totalDuration) {
-        int hours = totalDuration / (1000 * 60 * 60);
-        int minutes = (totalDuration % (1000 * 60 * 60)) / (1000 * 60);
-        int seconds = ((totalDuration % (1000 * 60 * 60)) % (1000 * 60)) / 1000;
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-    public static void aboutSong(LinearLayout fullSongInformation,
-                                 LinearLayout smallSongInformation,
-                                 LinearLayout playButtonsLayout) {
-        PlayPanelActivity.fullSongInformation = fullSongInformation;
-        PlayPanelActivity.smallSongInformation = smallSongInformation;
-        PlayPanelActivity.playButtonsLayout = playButtonsLayout;
-    }
     public static void updateInfo() {
         TextView durationFullInfo = fullSongInformation.findViewById(R.id.duration_time);
         TextView fullSongInfoReaded = fullSongInformation.findViewById(R.id.readed_teme);

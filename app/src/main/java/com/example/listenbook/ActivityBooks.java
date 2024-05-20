@@ -1,41 +1,39 @@
 package com.example.listenbook;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import android.Manifest;
-import android.content.ClipData;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.os.Environment;
+import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+import androidx.documentfile.provider.DocumentFile;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.util.ArrayList;
+import java.util.Comparator;
 
-import java.io.File;
-import java.io.IOException;
 
 public class ActivityBooks extends AppCompatActivity {
-    private static final int READ_AND_WRITE_STORAGE = 1;
     private static final int PICK_FILE_REQUEST_CODE = 2;
-    MyPermission permission = new MyPermission();
-    MediaPlayer mp = new MediaPlayer();
+
+    Permission permission = new Permission();
+    BookAdapter adapter;
+    DataBase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
+
+        dataBase = new DataBase(this);
+        ArrayList <AudioTrack> audioList = (ArrayList<AudioTrack>) dataBase.getAllAudioTracks();
+
+        GridView gridViewList = findViewById(R.id.gridView);
+        adapter = new BookAdapter(this, R.layout.item_book, audioList);
+        gridViewList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         ImageButton backToMainActivity = findViewById(R.id.library_back_button);
         backToMainActivity.setOnClickListener(v -> {
@@ -43,78 +41,93 @@ public class ActivityBooks extends AppCompatActivity {
             startActivity(intent);
         });
 
+//        ImageButton addBook = findViewById(R.id.add_book);
+//        addBook.setOnClickListener(v -> {
+//            permission.setContext(this);
+//            permission.CallPermission();
+//            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//            intent.setType("*/*");
+//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+//        });
         ImageButton addBook = findViewById(R.id.add_book);
         addBook.setOnClickListener(v -> {
             permission.setContext(this);
-            permission.CallPermission();
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.setType("*/*");
+            permission.checkPermissions();
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri singleUri = data.getData();
+        DataBase dataBase = new DataBase(this);
 
-//
-//        String title = "";
-//        String artist;
-//        String album;
-//        byte[] albumArt = new byte[0];
-//        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-//        Intent intent = new Intent(ActivityBooks.this, MainActivity.class);
-//
-//        try {
-//            retriever.setDataSource(getApplicationContext(), singleUri);
-//            title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-//            albumArt = retriever.getEmbeddedPicture();
-//            if (title != null) {
-//                intent.putExtra("albumArt", albumArt);
-//                intent.putExtra("title", title);
-////                Log.i(TAG, "Title: " + title);
-////                Toast.makeText(this, "Title: " + title, Toast.LENGTH_LONG).show();
-//            } else {
-//                Log.i(TAG, "Title: Unknown");
-//                Toast.makeText(this, "Title: Unknown", Toast.LENGTH_LONG).show();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            adapter.notifyDataSetChanged();
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            Uri singleUri = data.getData();
+            DocumentFile pickedDir = DocumentFile.fromTreeUri(this, singleUri);
 
-            SongActivity songActivity = new SongActivity();
-            MainActivity b = new MainActivity();
-            songActivity.getInfoFromManifest(singleUri, this);
-            PlayPanelActivity x = new PlayPanelActivity();
-            x.playMusic(singleUri, this);
+            String internalStorageRoot = String.valueOf(Environment.getExternalStorageDirectory());
 
-//                intent.putExtra("albumArt", albumArt);
-//                intent.putExtra("title", title);
-//                Toast.makeText(this, title , Toast.LENGTH_LONG).show();
-//
-//                startActivity(intent);
+            if (pickedDir != null && pickedDir.isDirectory()) {
+                DocumentFile[] files = pickedDir.listFiles();
+                if (!dataBase.isUriExists(pickedDir.getUri().toString())) {
+                    ArrayList<AudioItem> list = new ArrayList<>();
+                    for (DocumentFile file : files) {
+                        String uri = file.getUri().getPathSegments().get(3);
+                        retriever.setDataSource(this, file.getUri());
+                        if (uri.contains("primary:")) {
+                            uri = uri.replace("primary:", internalStorageRoot + "/");
+                        } else {
+                            String[] parts = uri.split(":");
+                            uri = "/storage/" + parts[0] + "/" + parts[1];
+                        }
+                            list.add(new AudioItem(Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER)), uri));
+                    }
+
+                    list.sort(Comparator.comparingInt(AudioItem::getId));
+                    Gson gson = new Gson();
+                    String jsonString = gson.toJson(list);
+
+                    ArrayList<AudioItem> newList = gson.fromJson(jsonString, new TypeToken<ArrayList<AudioItem>>(){}.getType());
+                    ArrayList<String> x = new ArrayList<>();
+                    for (int i = 0; i < newList.size(); i++) {
+                        x.add(newList.get(i).uri);
+                    }
+
+                    AudioTrack audioTrack = new AudioTrack(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM),
+                            retriever.getEmbeddedPicture(),
+                            pickedDir.getUri().toString(),
+                            x.toString());
+                    dataBase.insertAudioTrack(audioTrack);
+                }
+            }
         }
+      updateAdapter();
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == READ_AND_WRITE_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-            }
-            else if ((ActivityCompat.shouldShowRequestPermissionRationale(
-                    this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                    && ActivityCompat.shouldShowRequestPermissionRationale(
-                    this, Manifest.permission.WRITE_EXTERNAL_STORAGE))){
-                Toast.makeText(this, "This permishen need", Toast.LENGTH_LONG).show();
-            }
-            else {
-                permission.showSettingsDialog();
-            }
-
-        }
+    public void updateAdapter() {
+        if (dataBase.haveNotes()) {}
+        adapter.clear();
+        adapter.addAll(dataBase.getAllAudioTracks());
+        adapter.notifyDataSetChanged();
     }
+}
+
+class AudioItem {
+    int id;
+    String uri;
+
+    public AudioItem(int id, String uri) {
+        this.id = id;
+        this.uri = uri;
+    }
+    public int getId() {
+        return id;
+    }
+
 }

@@ -98,6 +98,7 @@
                 android:scaleX="0.7"
                 android:background="@android:color/transparent"                android:contentDescription="TODO"
                 app:srcCompat="@drawable/play_prew"
+                android:onClick="previousChapter"
                 tools:ignore="MissingConstraints"/>
 
             <ImageButton
@@ -142,6 +143,7 @@
                 app:srcCompat="@drawable/play_next"
                 android:scaleY="0.63"
                 android:scaleX="0.63"
+                android:onClick="nextChapter"
                 tools:ignore="MissingConstraints"/>
 
         </LinearLayout>
@@ -239,7 +241,7 @@
                     android:layout_weight="100"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:progress="50"
+                    android:progress="100"
                     android:progressTint="@color/progressTintVolume"
                     android:progressBackgroundTint="@color/progressTintVolume"
                     android:thumbTint="@color/progressTintVolume"
