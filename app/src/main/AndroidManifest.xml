@@ -3,9 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+        android:maxSdkVersion="32"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"
+        tools:ignore="ProtectedPermissions" />
     <application
         android:allowBackup="true"
         android:requestLegacyExternalStorage="true"
@@ -21,36 +32,64 @@
         <activity
             android:theme="@style/AppTheme"
             android:windowBackground="@color/background_main"
-            android:name=".MainActivity"
+            android:name=".activities.PlayTrackActivity"
             android:exported="true"
             android:screenOrientation="sensor"
             tools:ignore="ManifestResource">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityBooks"
+            android:name=".activities.activity_books.ActivityBooks"
             android:exported="false"
             android:screenOrientation="sensor"/>
         <activity
-            android:name=".ActivityBookmarks"
+            android:name=".activities.activity_bookmarks.ActivityBookmarks"
             android:exported="false"
             android:screenOrientation="sensor"/>
         <activity
-            android:name=".ActivityHistory"
+            android:name=".activities.ActivityHistory"
             android:exported="false"
             android:screenOrientation="sensor"/>
         <activity
-            android:name=".ActivityStatistics"
+            android:name=".activities.ActivityStatistics"
             android:exported="false"
             android:screenOrientation="sensor"/>
         <activity
-            android:name=".ActivitySettings"
+            android:name=".activities.ActivitySettings"
             android:exported="false"
             android:screenOrientation="sensor"/>
-    </application>
+        <activity
+            android:name=".activities.ActivityBookSettings"
+            android:exported="false"
+            android:screenOrientation="sensor"/>
+        <activity android:name=".activities.MainActivity"
+            android:exported="false"
+            android:screenOrientation="sensor"/>
 
+        <service
+            android:name=".services.MediaPlaybackService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="false"
+            android:permission="TODO">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaLibraryService"/>
+                <action android:name="android.media.browse.MediaBrowserService"/>
+            </intent-filter>
+        </service>
+<!--        <service-->
+<!--            android:name=".MediaPlaybackService"-->
+<!--            android:foregroundServiceType="mediaPlayback"-->
+<!--            android:exported="true"-->
+<!--            tools:ignore="ExportedService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.media.browse.MediaBrowserService" />-->
+<!--                <action android:name="android.intent.action.MEDIA_BUTTON" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+
+    </application>
 </manifest>

@@ -43,4 +43,18 @@
     <string name="light_theme">Cвітла</string>
     <string name="dark_theme">Темна</string>
     <string name="auto_theme">Система</string>
+    <string name="permission_dialog_title">Необхідний дозвіл</string>
+    <string name="permission_dialog_text">Для використання цієї функції потрібен дозвіл на доступ до розташування.</string>
+    <string name="save">Зберегти</string>
+    <string name="dialog_bookmark_title">Нова закладка</string>
+    <string name="chapter">Глава</string>
+    <string name="toolbar_book_settings">Обробка</string>
+    <string name="delete">Видалити</string>
+    <string name="edit">Змінити</string>
+    <string name="goToBookmark">Перейти на вкладинку</string>
+    <string name="deleteBookmarks">Видалити закладки</string>
+    <string name="rewindSpeed">Швидкість перемотування</string>
+    <string name="learningLibrary">Натисніть цю кнопку, щоб додати нову книгу</string>
+    <string name="learningMainBooks">Натисніть цю кнопку, щоб додати, видалити або вибрати книгу</string>
+    <string name="learningMainBurger">Натисніть цю кнопку, щоб відкрити бічне меню</string>
 </resources>

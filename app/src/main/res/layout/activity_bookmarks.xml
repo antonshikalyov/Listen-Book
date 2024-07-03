@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_main"
-    tools:context=".ActivityBookmarks">
+    tools:context=".activities.activity_bookmarks.ActivityBookmarks"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,9 +16,11 @@
         <include layout="@layout/toolbar_bookmark"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/description_bookmarks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:paddingBottom="100dp"
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
@@ -42,4 +45,20 @@
             android:textColor="@color/progressBackgroundTint"
             android:textStyle="bold"/>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/gridView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:elevation="32dp"
+            tools:ignore="MissingConstraints"
+            android:scrollbars="vertical"
+            android:scrollbarSize="6dp">
+
+        </ListView>
+    </LinearLayout>
+</LinearLayout>

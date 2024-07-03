@@ -4,8 +4,14 @@
         <item name="android:windowBackground">@color/background_main</item>
     </style>
 
-        <style name="Transparent">
-            <item name="android:windowBackground">@android:color/transparent</item>
-        </style>
+    <style name="Transparent">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="NoBackgroundDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
 </resources>

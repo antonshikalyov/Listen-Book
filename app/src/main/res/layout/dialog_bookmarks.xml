@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    android:background="@drawable/radius_background_control_buttons">
+
+    <Button
+        android:id="@+id/run_bookmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textColor="@color/textColor"
+        android:text="@string/goToBookmark" />
+
+    <Button
+        android:id="@+id/button_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="80dp"
+        android:paddingLeft="80dp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/textColor"
+        android:text="@string/edit" />
+
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="80dp"
+        android:paddingLeft="80dp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/textColor"
+        android:text="@string/delete" />
+
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="80dp"
+        android:paddingLeft="80dp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/textColor"
+        android:text="@string/cancel" />
+</LinearLayout>

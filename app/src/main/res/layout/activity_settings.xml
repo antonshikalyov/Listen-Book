@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_main"
-    tools:context=".ActivitySettings">
+    tools:context=".activities.ActivitySettings">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -359,17 +359,23 @@
                         android:layout_gravity="center"
                         android:layout_weight="0.7"
                         android:text="@string/activity_settings_player_5"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:paddingLeft="10dp"
                         android:textColor="@color/textColor" />
-                    <ImageButton
-                        android:layout_gravity="center"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/baseline_check_24"
-                        android:background="@drawable/radius_check_buttons"
-                        app:tint="@color/textColor"/>
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:padding="0dp">
+                        <Button
+                            android:id="@+id/step_forward_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="0dp"
+                            android:textSize="16sp"
+                            android:textAllCaps="false"
+                            android:background="@drawable/radius_check_buttons"
+                            android:onClick="showDialogStepForward"/>
+                    </FrameLayout>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"

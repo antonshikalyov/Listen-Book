@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_toolbar"
+    tools:ignore="MissingDefaultResource">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <ImageButton
+        android:id="@+id/back_audio_settings_button"
+        android:layout_width="0dp"
+        android:layout_weight="0.1"
+        android:layout_height="wrap_content"
+        android:scaleY="0.7"
+        android:scaleX="0.7"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/arrow_back"
+        android:importantForAccessibility="no" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_weight="0.9"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="0.2"
+        android:gravity="center_horizontal"
+        android:text="@string/toolbar_book_settings"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageButton
+        android:id="@+id/save_speed_book_button"
+        android:layout_width="0dp"
+        android:layout_weight="0.1"
+        android:layout_height="match_parent"
+        android:scaleY="2"
+        android:scaleX="2"
+        android:layout_marginRight="15dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="Burger Button"
+        android:src="@drawable/baseline_check_24" />
+</LinearLayout>
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_marginRight="15dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent">-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:ignore="MissingConstraints">-->
+<!--            <TextView-->
+<!--                android:id="@+id/textView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintHorizontal_weight="0.2"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:text="@string/toolbar_book_settings"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="25sp"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"/>-->
+<!--        </LinearLayout>-->
+<!--        -->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+</androidx.appcompat.widget.Toolbar>

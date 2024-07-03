@@ -1,0 +1,5 @@
+<vector android:autoMirrored="true" android:height="25dp"
+    android:viewportHeight="256" android:viewportWidth="256"
+    android:width="25dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@color/textColor" android:name="Фигура 7" android:pathData="m191.05 123.2h-57.77v-57.77c0 -2.66 -2.16 -4.82 -4.82 -4.82c-2.66 0 -4.82 2.16 -4.82 4.82v57.77h-57.77c-2.66 0 -4.82 2.16 -4.82 4.82c0 2.66 2.16 4.82 4.82 4.82h57.77v57.77c0 2.66 2.16 4.82 4.82 4.82c2.66 0 4.82 -2.16 4.82 -4.82v-57.77h57.77c2.66 0 4.82 -2.16 4.82 -4.82c0 -2.66 -2.16 -4.82 -4.82 -4.82z"/>
+</vector>

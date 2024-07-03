@@ -13,4 +13,5 @@
     <color name="textColor">#d8d9d4</color>
     <color name="toolbarLibrary">#000000</color>
     <color name="settingsCheck">#FF61646d</color>
+    <color name="bookmarkTitle">#181B20</color>
 </resources>

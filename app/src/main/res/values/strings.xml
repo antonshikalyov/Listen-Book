@@ -46,4 +46,20 @@
     <string name="light_theme">Светлая</string>
     <string name="dark_theme">Темная</string>
     <string name="auto_theme">Система</string>
+    <string name="permission_dialog_title">Необходимо разрешение</string>
+    <string name="permission_dialog_text">Для использования данной функции требуется разрешение на доступ к местоположению.
+                                            Вы можете предоставить разрешение в настройках приложения.</string>
+    <string name="save">Сохранить</string>
+    <string name="dialog_bookmark_title">Новая закладка</string>
+    <string name="chapter">Глава</string>
+    <string name="toolbar_book_settings">Обработка</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Изменить</string>
+    <string name="goToBookmark">Перейти на закладку</string>
+    <string name="deleteBookmarks">Удалить закладки</string>
+    <string name="rewindSpeed">Cкорость перемотки</string>
+    <string name="learningLibrary">Нажмите эту кнопку для того, чтобы добавить новую книгу</string>
+    <string name="learningMainBooks">Нажмите эту кнопку для добавления, удаления или выбора книг</string>
+    <string name="learningMainBurger">Нажмите эту кнопку для открытия бокового меню</string>
+
 </resources>

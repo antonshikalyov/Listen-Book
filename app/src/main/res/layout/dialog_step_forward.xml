@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:minWidth="350dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/radius_background_control_buttons">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rewindSpeed"
+        android:textSize="25sp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/textColor"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="6dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/step_forward_5sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="5 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/step_forward_10sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="10 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/step_forward_15sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="15 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/step_forward_30sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="30 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/step_forward_60sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="60 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"/>
+            <Button
+                android:id="@+id/step_forward_120sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="120 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/step_forward_300sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="300 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:id="@+id/step_forward_600sec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="32dp"
+                android:text="600 sec."
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/dialog_cancel"
+            android:layout_width="0dp"
+            android:layout_height="35sp"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:elevation="32dp"
+            android:layout_margin="15dp"
+            android:textColor="@color/textColor"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+        tools:ignore="ButtonStyle">
+        </Button>
+        <Button
+            android:id="@+id/dialog_save"
+            android:layout_width="0dp"
+            android:layout_height="35sp"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:elevation="32dp"
+            android:layout_margin="15dp"
+            android:textColor="@color/textColor"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:lines="1"
+            style="?android:attr/buttonBarButtonStyle">
+        </Button>
+    </LinearLayout>
+</LinearLayout>

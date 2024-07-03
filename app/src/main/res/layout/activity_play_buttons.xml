@@ -9,7 +9,7 @@
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:background="@drawable/radius_background_control_buttons"
-    tools:context=".MainActivity">
+    tools:context=".activities.PlayTrackActivity">
 
     <LinearLayout
         android:id="@+id/playButtonsLayout"
@@ -37,9 +37,11 @@
                 tools:ignore="MissingConstraints" />
         </LinearLayout>
         <TextView
+            android:id="@+id/song_info_play_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Song name"
+            android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:textColor="@color/textColor"
@@ -101,16 +103,30 @@
                 android:onClick="previousChapter"
                 tools:ignore="MissingConstraints"/>
 
-            <ImageButton
-                android:id="@+id/small_backButton"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:scaleY="0.7"
-                android:scaleX="0.7"
-                android:background="@android:color/transparent"
-                android:contentDescription="TODO"
-                app:srcCompat="@drawable/ic_button_back" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/small_backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="smBackward"
+                    app:srcCompat="@drawable/ic_button_back"
+                    android:importantForAccessibility="no" />
+
+                <TextView
+                    android:id="@+id/backButtonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:padding="5dp" />
+            </FrameLayout>
 
             <ImageButton
                 android:id="@+id/resumeButton"
@@ -124,15 +140,30 @@
                 android:onClick="resumeMusic"
                 tools:ignore="ContentDescription,MissingConstraints" />
 
-            <ImageButton
-                android:id="@+id/small_forwardButton"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:scaleY="0.7"
-                android:scaleX="0.7"
-                android:background="@android:color/transparent"                android:contentDescription="TODO"
-                app:srcCompat="@drawable/ic_button_forward" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/small_forwardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="smForward"
+                    app:srcCompat="@drawable/ic_button_forward"
+                    android:importantForAccessibility="no" />
+
+                <TextView
+                    android:id="@+id/forwardButtonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:padding="5dp" />
+            </FrameLayout>
 
             <ImageButton
                 android:id="@+id/small_nextButton"
@@ -173,6 +204,7 @@
                     android:scaleX="0.7"
                     android:background="@android:color/transparent"                android:contentDescription="TODO"
                     app:srcCompat="@drawable/ic_bookmark"
+                    android:onClick="addBookmark"
                     tools:ignore="MissingConstraints"/>
                 <ImageButton
                     android:id="@+id/alarm_control_panel"

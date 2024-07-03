@@ -2,9 +2,11 @@
 <androidx.appcompat.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background_toolbar">
+    android:background="@color/background_toolbar"
+    tools:ignore="MissingDefaultResource">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginRight="15dp"
@@ -47,8 +49,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="Burger Button"
             android:src="@drawable/icon_books"
-            android:scaleY="0.6"
-            android:scaleX="0.6"
+            android:scaleY="0.85"
+            android:scaleX="0.85"
             app:layout_constraintStart_toEndOf="@id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
