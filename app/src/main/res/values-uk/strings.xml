@@ -57,4 +57,16 @@
     <string name="learningLibrary">Натисніть цю кнопку, щоб додати нову книгу</string>
     <string name="learningMainBooks">Натисніть цю кнопку, щоб додати, видалити або вибрати книгу</string>
     <string name="learningMainBurger">Натисніть цю кнопку, щоб відкрити бічне меню</string>
+    <string name="titleFirstslideFirst">Слухайте книги!</string>
+    <string name="titleSecondslideFirst">Будь-які і будь-де!</string>
+    <string name="titleFirstslideSecond">Просте додавання</string>
+    <string name="titleSecondslideSecond">аудіокниг</string>
+    <string name="titleFirstslideThird">Не витрачайте час на</string>
+    <string name="titleSecondslideThird">конвертацію аудіокниг</string>
+    <string name="titleFirstslideForth">Відпочивайте, навчайтеся і</string>
+    <string name="titleSecondslideForth">розвивайтеся з аудіокнигами</string>
+    <string name="contentSlide1">Слухайте аудіокниги завантажені з Інтернету без обмежень. У будь-яких аудіоформатах та незалежно від наявності Інтернету!</string>
+    <string name="contentSlide2">Завантажуйте аудіокниги з комп\'ютера через браузер, WebDav, з хмарних сервісів та безпосередньо з програми YouTube!</string>
+    <string name="contentSlide3">Слухайте аудіокниги в будь-якій з підтримуваних форматів аудіокниг: MP3, M4B, M4A, AWB, AAC, WMA, FLAC, OPUS, OGG. Також можна завантажувати аудіокниги у вигляді ZIP-архіву.</string>
+    <string name="contentSlide4">Умный таймер сна поможет тебе расслабиться. Закладки запомнят любимые места. Статистика посчитает сколько времени вы уделяете книгам</string>
 </resources>

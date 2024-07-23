@@ -3,7 +3,8 @@ package com.example.listenbook.services;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.listenbook.activities.PlayPanelActivity;
+import com.example.listenbook.activities.play_track_activity.PlayPanelActivity;
+import com.example.listenbook.activities.play_track_activity.PlayTrackActivity;
 
 public class TimingThread extends Thread {
     private volatile boolean isPlaying = true;

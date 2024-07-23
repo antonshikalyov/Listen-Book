@@ -22,9 +22,9 @@
         android:requestLegacyExternalStorage="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/launch_icon"
+        android:icon="@drawable/app_store_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/launch_icon"
+        android:roundIcon="@drawable/app_store_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:localeConfig="@xml/locale_config"
@@ -32,7 +32,7 @@
         <activity
             android:theme="@style/AppTheme"
             android:windowBackground="@color/background_main"
-            android:name=".activities.PlayTrackActivity"
+            android:name=".activities.play_track_activity.PlayTrackActivity"
             android:exported="true"
             android:screenOrientation="sensor"
             tools:ignore="ManifestResource">
@@ -89,7 +89,5 @@
 <!--                <action android:name="android.intent.action.MEDIA_BUTTON" />-->
 <!--            </intent-filter>-->
 <!--        </service>-->
-
-
     </application>
 </manifest>

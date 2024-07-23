@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical"
         tools:ignore="MissingConstraints,UseCompoundDrawables">
         <LinearLayout
@@ -101,7 +101,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
         <ImageView
-            android:src="@drawable/slide1"
+            android:src="@drawable/app_store_icon"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"/>

@@ -1,6 +1,9 @@
 package com.example.listenbook.services;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageButton;
@@ -11,7 +14,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.FullscreenPromptBackground;
 
 public class UserLearning {
-    public static int learningUserMain(Activity activity) {
+    public static void learningUserMain(Activity activity) {
         ImageButton toolbarLibraryButton = activity.findViewById(R.id.toolbar_library);
         ImageButton burgerButton = activity.findViewById(R.id.burger_button);
 
@@ -41,11 +44,14 @@ public class UserLearning {
                                     if (innerState == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || innerState == MaterialTapTargetPrompt.STATE_DISMISSED) {
                                         toolbarLibraryButton.setEnabled(true);
                                         burgerButton.setEnabled(true);
+                                        SharedPreferences sharedPreferences = activity.getSharedPreferences("settings", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putInt("MAIN_USER_LEARNING", 1);
+                                        editor.apply();
                                     }
                                 }).show();
                     }
                 }).show();
-        return 1;
     }
 
     public static int learningUserLibrary(Activity activity) {

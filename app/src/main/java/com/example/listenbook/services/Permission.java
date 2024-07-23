@@ -21,15 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Permission {
-    private static final int REQUEST_CODE_PERMISSIONS = 123;
-    private Context context;
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
-    public void checkPermissions(Context context) {
-        setContext(context);
+
+    public void checkPermissions(Context context, int requestParameter) {
         List<String>  permissionsArray = new ArrayList<>();
         permissionsArray.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         permissionsArray.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -39,19 +34,14 @@ public class Permission {
         permissionsArray.add(Manifest.permission.BROADCAST_STICKY);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissionsArray.add(Manifest.permission.READ_MEDIA_AUDIO);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             permissionsArray.add(Manifest.permission.MANAGE_EXTERNAL_STORAGE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             permissionsArray.add(Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             permissionsArray.add(Manifest.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            permissionsArray.add(Manifest.permission.POST_NOTIFICATIONS);
-        }
+
+
 
         String[] permissions = new String[permissionsArray.size()];
         permissionsArray.toArray(permissions);
@@ -65,33 +55,14 @@ public class Permission {
         }
 
         if (allPermissionsGranted) {
-            Toast.makeText(context, "All permissions granted", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "All permissions granted" + allPermissionsGranted, Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions((Activity) context, permissions, REQUEST_CODE_PERMISSIONS);
+            Toast.makeText(context, "All permissions granted" + allPermissionsGranted, Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions((Activity) context, permissions, requestParameter);
         }
     }
 
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-//            boolean allPermissionsGranted = true;
-//            for (int grantResult : grantResults) {
-//                if (grantResult != PackageManager.PERMISSION_GRANTED) {
-//                    allPermissionsGranted = false;
-//                    break;
-//                }
-//            }
-//            if (allPermissionsGranted) {
-//                Toast.makeText(context, "All permissions granted", Toast.LENGTH_LONG).show();
-//            } else {
-//                Toast.makeText(context, "Some permissions denied", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context.getPackageName(), null))
-//                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(intent);
-//            }
-//        }
-//    }
-
-    public void showSettingsDialog() {
+    public void showSettingsDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.permission_dialog_title);
         builder.setMessage(R.string.permission_dialog_text);

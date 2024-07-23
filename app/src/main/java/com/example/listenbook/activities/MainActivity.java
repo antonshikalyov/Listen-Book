@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.listenbook.MainActivityAdapter;
 import com.example.listenbook.R;
+import com.example.listenbook.activities.play_track_activity.PlayTrackActivity;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView circle1;
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
 
         circle1 = findViewById(R.id.circle1);
         circle2 = findViewById(R.id.circle2);

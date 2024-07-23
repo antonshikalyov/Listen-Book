@@ -10,7 +10,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.listenbook.R;
-import com.example.listenbook.activities.PlayTrackActivity;
+import com.example.listenbook.activities.play_track_activity.PlayTrackActivity;
 import com.example.listenbook.services.DataBase;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class ActivityBookmarks extends AppCompatActivity {
         setContentView(R.layout.activity_bookmarks);
 
         dataBase = new DataBase(this);
-        ArrayList<Integer> uniqueBookmarks = new ArrayList<>();
+        ArrayList<Integer> uniqueBookmarks;
         uniqueBookmarks = dataBase.getUniqueBookmarksForeigenKeys();
         LinearLayout description_bookmarks = findViewById(R.id.description_bookmarks);
         if (!uniqueBookmarks.isEmpty()) {

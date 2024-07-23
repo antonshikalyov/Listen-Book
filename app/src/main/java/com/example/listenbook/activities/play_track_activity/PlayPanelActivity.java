@@ -1,4 +1,4 @@
-package com.example.listenbook.activities;
+package com.example.listenbook.activities.play_track_activity;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -47,6 +47,8 @@ public class PlayPanelActivity implements AudioManager.OnAudioFocusChangeListene
     private static LinearLayout smallSongInformation;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout playButtonsLayout;
+    @SuppressLint("StaticFieldLeak")
+    public static PlayListAdapter itemTrackList;
     private static boolean mPlaybackDelayed;
     public static AudioManager mAudioManager;
     private static final Object mFocusLock = new Object();
@@ -175,6 +177,7 @@ public class PlayPanelActivity implements AudioManager.OnAudioFocusChangeListene
         dialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     private static void updateCurrentChapter(long newDuration, EditText editText, TextView time, String chapterString) {
         int newChapterIndex = binarySearchChapter(newDuration);
         currentChapter = chapters.get(newChapterIndex);
@@ -275,12 +278,28 @@ public class PlayPanelActivity implements AudioManager.OnAudioFocusChangeListene
         TextView smallSongInfoReaded = smallSongInformation.findViewById(R.id.small_readed_teme);
         TextView playSongInfoReaded = playButtonsLayout.findViewById(R.id.playReaded);
         TextView playSongInfoSurplus = playButtonsLayout.findViewById(R.id.playSurplus);
-        SeekBar seekBar = playButtonsLayout.findViewById(R.id.simpleSeekBar);
 
+
+        SeekBar seekBar1 = playButtonsLayout.findViewById(R.id.simpleSeekBar);
+        int currentPosition = (int) MediaPlaybackService.getMediaController().getCurrentPosition();
+
+        seekBar1.setMax((int) MediaPlaybackService.mediaController.getDuration());
+        seekBar1.setProgress(currentPosition);
+
+        if (itemTrackList != null) {
+            int currentIndex = MediaPlaybackService.mediaController.getCurrentMediaItemIndex();
+            itemTrackList.updateSeekBarProgress(currentIndex);
+        }
+
+
+////        View itemView = itemTrackList.getView(MediaPlaybackService.mediaController.getCurrentMediaItemIndex(), null, null);
+        SeekBar seekBar =  playButtonsLayout.findViewById(R.id.simpleSeekBar);
         seekBar.setMin(0);
         seekBar.setMax((int) MediaPlaybackService.mediaController.getDuration());
         seekBar.setProgress((int) MediaPlaybackService.mediaController.getCurrentPosition());
         PlayPanelActivity.seekBarDuration(seekBar);
+
+
 
         durationFullInfo.setText(convertMils(Math.toIntExact(currentBook.book_duration)));
         durationSmallInfo.setText(convertMils(Math.toIntExact(currentBook.book_duration)));
@@ -290,6 +309,7 @@ public class PlayPanelActivity implements AudioManager.OnAudioFocusChangeListene
         playSongInfoSurplus.setText(convertMils((int) MediaPlaybackService.getMediaController().getDuration()));
     }
 
+    @SuppressLint("DefaultLocale")
     public static String convertMils(int totalDuration) {
         int hours = totalDuration / (1000 * 60 * 60);
         int minutes = (totalDuration % (1000 * 60 * 60)) / (1000 * 60);
@@ -299,11 +319,13 @@ public class PlayPanelActivity implements AudioManager.OnAudioFocusChangeListene
     @SuppressLint("SetTextI18n")
     public static void aboutSong(LinearLayout fullSongInformation,
                                  LinearLayout smallSongInformation,
-                                 LinearLayout playButtonsLayout) {
+                                 LinearLayout playButtonsLayout,
+                                 PlayListAdapter itemTrackList) {
 
         PlayPanelActivity.fullSongInformation = fullSongInformation;
         PlayPanelActivity.smallSongInformation = smallSongInformation;
         PlayPanelActivity.playButtonsLayout = playButtonsLayout;
+        PlayPanelActivity.itemTrackList = itemTrackList;
 
         TextView stepForwardText = playButtonsLayout.findViewById(R.id.forwardButtonText);
         TextView stepBackText = playButtonsLayout.findViewById(R.id.backButtonText);

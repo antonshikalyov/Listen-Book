@@ -47,7 +47,7 @@
     <string name="dark_theme">Темная</string>
     <string name="auto_theme">Система</string>
     <string name="permission_dialog_title">Необходимо разрешение</string>
-    <string name="permission_dialog_text">Для использования данной функции требуется разрешение на доступ к местоположению.
+    <string name="permission_dialog_text">Для использования данной функции требуется разрешение на доступ к памяти телефона.
                                             Вы можете предоставить разрешение в настройках приложения.</string>
     <string name="save">Сохранить</string>
     <string name="dialog_bookmark_title">Новая закладка</string>
@@ -61,5 +61,16 @@
     <string name="learningLibrary">Нажмите эту кнопку для того, чтобы добавить новую книгу</string>
     <string name="learningMainBooks">Нажмите эту кнопку для добавления, удаления или выбора книг</string>
     <string name="learningMainBurger">Нажмите эту кнопку для открытия бокового меню</string>
-
+    <string name="titleFirstslideFirst">Слушайте книги!</string>
+    <string name="titleSecondslideFirst">Любые и где угодно!</string>
+    <string name="titleFirstslideSecond">Простое добавление</string>
+    <string name="titleSecondslideSecond">аудиокниг</string>
+    <string name="titleFirstslideThird">Не тратьте время на</string>
+    <string name="titleSecondslideThird">конвертацию аудиокниг</string>
+    <string name="titleFirstslideForth">Отдыхайте, учитесь и</string>
+    <string name="titleSecondslideForth">развивайтесь с аудиокнигами</string>
+    <string name="contentSlide1">Слушайте аудиокниги скаченные из Интернета без ограничений. В любых аудиоформатах и независимо от наличия Интернета!</string>
+    <string name="contentSlide2">Загружайте аудиокниги с компьютера через браузер, WebDav, из облачных сервисов и напрямую из приложения YouTube!</string>
+    <string name="contentSlide3">Слушайте аудиокниги в любом из множеств поддерживаемых форматов аудиокниг: MP3, M4B, M4A, AWB, AAC, WMA, FLAC, OPUS, OGG. Также можно загружать аудиокниги в виде ZIP-архива.</string>
+    <string name="contentSlide4">Умный таймер сна поможет тебе расслабиться. Закладки запомнят любимые места. Статистика посчитает сколько времени вы уделяете книгам</string>
 </resources>

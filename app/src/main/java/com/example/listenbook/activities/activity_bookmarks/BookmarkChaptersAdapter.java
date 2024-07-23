@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.listenbook.R;
-import com.example.listenbook.activities.PlayPanelActivity;
-import com.example.listenbook.activities.PlayTrackActivity;
+import com.example.listenbook.activities.play_track_activity.PlayPanelActivity;
+import com.example.listenbook.activities.play_track_activity.PlayTrackActivity;
 import com.example.listenbook.entities.AudioItem;
 import com.example.listenbook.entities.Book;
 import com.example.listenbook.entities.Bookmark;

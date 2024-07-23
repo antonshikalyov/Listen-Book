@@ -21,27 +21,27 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
             0
     };
 
-    private final String[] str = new String[]{
-            "Слушайте книги!",
-            "Простое добавление",
-            "Не тратьте время на",
-            "Отдыхайте, учитесь и",
-            ""
+    private final int[] titleFirst = new int[]{
+            R.string.titleFirstslideFirst,
+            R.string.titleFirstslideSecond,
+            R.string.titleFirstslideThird,
+            R.string.titleFirstslideForth,
+            0
     };
-    private final String[] str2 = new String[]{
-            "Любые и где угодно!",
-            "аудиокниг",
-            "конвертацию аудиокниг",
-            "развивайтесь с аудиокнигами",
-            ""
+    private final int[] tittleSecond = new int[]{
+            R.string.titleSecondslideFirst,
+            R.string.titleSecondslideSecond,
+            R.string.titleSecondslideThird,
+            R.string.titleSecondslideForth,
+            0
     };
 
-    private final String[] str3 = new String[]{
-            "Слушайте аудиокниги скаченные из Интернета без ограничений. В любых аудиоформатах и независимо от наличия Интернета!",
-            "Загружайте аудиокниги с компьютера через браузер, WebDav, из облачных сервисов и напрямую из приложения YouTube!",
-            "Слушайте аудиокниги в любом из множеств поддерживаемых форматов аулиокниг: MP3, M4B, M4A, AWB, AAC, WMA, FLAC, OPUS, OGG. Также можно загружать аудилкниги в виде ZIP-архива.",
-            "Умный таймер сна поможет тебе расслабиться. Закладки запомнят любимые места. Статистика посчитает сколько времени вы уделяете книгам",
-            ""
+    private final int[] content = new int[]{
+            R.string.contentSlide1,
+            R.string.contentSlide2,
+            R.string.contentSlide3,
+            R.string.contentSlide4,
+            0
     };
     @NonNull
     @Override
@@ -58,9 +58,9 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         if (position < colors.length - 1) {
             holder.sliders.setVisibility(View.VISIBLE);
             holder.finalSlide.setVisibility(View.GONE);
-            holder.tvAbout1.setText(str[position]);
-            holder.tvAbout2.setText(str2[position]);
-            holder.tvAbout3.setText(str3[position]);
+            holder.tvAbout1.setText(titleFirst[position]);
+            holder.tvAbout2.setText(tittleSecond[position]);
+            holder.tvAbout3.setText(content[position]);
             holder.slide_image.setImageResource(colors[position]);
         } else {
             holder.sliders.setVisibility(View.GONE);

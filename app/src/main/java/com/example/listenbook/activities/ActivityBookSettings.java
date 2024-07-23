@@ -1,7 +1,6 @@
 package com.example.listenbook.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,11 +11,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.listenbook.R;
+import com.example.listenbook.activities.play_track_activity.PlayPanelActivity;
+import com.example.listenbook.activities.play_track_activity.PlayTrackActivity;
 import com.example.listenbook.services.DataBase;
 import com.example.listenbook.services.MediaPlaybackService;
 
 public class ActivityBookSettings extends AppCompatActivity {
-    SharedPreferences.Editor editor;
 
     private SeekBar customSeekBar;
     TextView indicateSpeed;

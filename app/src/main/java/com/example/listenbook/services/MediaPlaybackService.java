@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaMetadata;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Binder;
@@ -30,8 +32,9 @@ import androidx.media3.session.MediaSession;
 import androidx.media3.session.MediaSessionService;
 import androidx.media3.session.SessionCommand;
 
-import com.example.listenbook.activities.PlayTrackActivity;
-import com.example.listenbook.activities.PlayPanelActivity;
+import com.example.listenbook.activities.play_track_activity.PlayListAdapter;
+import com.example.listenbook.activities.play_track_activity.PlayTrackActivity;
+import com.example.listenbook.activities.play_track_activity.PlayPanelActivity;
 import com.example.listenbook.R;
 import com.example.listenbook.entities.AudioItem;
 import com.google.common.collect.ImmutableList;
@@ -51,12 +54,14 @@ public class MediaPlaybackService extends MediaSessionService  {
     public static NotificationChannel channel;
     public static List<MediaItem> mediaItems = new ArrayList<>();
 
+public List<MediaItem> getMediaItems() {
+    return mediaItems;
+}
 
-
-    private BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (PlayPanelActivity.mAudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent.getAction())) {
+            if (AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent.getAction())) {
                 if (player != null && player.getPlayWhenReady()) {
                     getMediaController().pause();
                     updateNotification(context, R.drawable.ic_play);
@@ -167,8 +172,8 @@ public class MediaPlaybackService extends MediaSessionService  {
                 String title = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
                 String artist = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
                 String album = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+                int discNumber = item.id;
                 byte[] artworkData = retriever.getEmbeddedPicture();
-
 
                 @OptIn(markerClass = UnstableApi.class)
                 androidx.media3.common.MediaMetadata mediaMetadata = new androidx.media3.common.MediaMetadata.Builder()
@@ -176,13 +181,13 @@ public class MediaPlaybackService extends MediaSessionService  {
                         .setArtist(album)
                         .setAlbumArtist(artist)
                         .setArtworkData(artworkData)
+                        .setTrackNumber(discNumber)
                         .build();
 
-                MediaItem mediaItem = new MediaItem.Builder()
+                @OptIn(markerClass = UnstableApi.class) MediaItem mediaItem = new MediaItem.Builder()
                         .setMediaMetadata(mediaMetadata)
                         .setUri(Uri.fromFile(new File(item.uri)))
                         .build();
-
                 mediaItems.add(mediaItem);
             }
         }
@@ -193,7 +198,7 @@ public class MediaPlaybackService extends MediaSessionService  {
         setMediaItems();
         mediaController.setMediaItems(mediaItems);
         mediaController.prepare();
-        mediaController.setPlaybackSpeed((float) dataBase.getBookSpeedByForeignKey(PlayPanelActivity.currentBook.id));
+        mediaController.setPlaybackSpeed(dataBase.getBookSpeedByForeignKey(PlayPanelActivity.currentBook.id));
         mediaController.play();
     }
 
@@ -202,13 +207,15 @@ public class MediaPlaybackService extends MediaSessionService  {
         setMediaItems();
         mediaController.setMediaItems(mediaItems, startIndex, position);
         mediaController.prepare();
-        mediaController.setPlaybackSpeed((float) dataBase.getBookSpeedByForeignKey(PlayPanelActivity.currentBook.id));
+        mediaController.setPlaybackSpeed(dataBase.getBookSpeedByForeignKey(PlayPanelActivity.currentBook.id));
         mediaController.play();
     }
 
 
 
     private void createMediaController() {
+        PlayListAdapter playListAdapter = new PlayListAdapter();
+
         ListenableFuture<MediaController> controllerFuture =
                 new MediaController.Builder(this, mediaSession.getToken()).buildAsync();
         controllerFuture.addListener(() -> {
@@ -225,11 +232,15 @@ public class MediaPlaybackService extends MediaSessionService  {
                         public void onMediaItemTransition(@Nullable MediaItem mediaItem, int reason) {
                             Log.i("MediaPlaybackService", "onMediaItemTransition: " + mediaItem.mediaMetadata.title);
                             PlayPanelActivity.setInfo();
+                            playListAdapter.setCurrentItemIndex(mediaController.getCurrentMediaItemIndex());
+
                         }
 
                         @Override
                         public void onPlaybackStateChanged(int state) {
                             PlayPanelActivity.setInfo();
+                            playListAdapter.setCurrentItemIndex(mediaController.getCurrentMediaItemIndex());
+
                         }
 
                         @Override
@@ -303,6 +314,7 @@ public class MediaPlaybackService extends MediaSessionService  {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+        PlayListAdapter playListAdapter = new PlayListAdapter();
         if (intent != null) {
             String action = intent.getAction();
             if (action != null) {
@@ -312,7 +324,7 @@ public class MediaPlaybackService extends MediaSessionService  {
                         break;
                     case "NEXT_CHAPTER":
                         getMediaController().seekToNextMediaItem();
-                    break;
+                        playListAdapter.setCurrentItemIndex(mediaController.getCurrentMediaItemIndex());
                     case "PREVIOUS_CHAPTER":
                         getMediaController().seekToPreviousMediaItem();
                     break;

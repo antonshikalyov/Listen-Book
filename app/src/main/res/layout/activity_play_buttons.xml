@@ -9,7 +9,7 @@
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:background="@drawable/radius_background_control_buttons"
-    tools:context=".activities.PlayTrackActivity">
+    tools:context=".activities.play_track_activity.PlayTrackActivity">
 
     <LinearLayout
         android:id="@+id/playButtonsLayout"

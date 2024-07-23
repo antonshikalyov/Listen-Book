@@ -114,7 +114,7 @@ public class DataBase extends SQLiteOpenHelper {
         values.put(COLUMN_TITLE, updatedBookmark.title);
         values.put(COLUMN_NOTES, updatedBookmark.notes);
         values.put(COLUMN_BOOKMARK_DURATION, updatedBookmark.duration);
-        values.put(COLUMN_BOOKMARK_FOREIGN, updatedBookmark.fKeyBookId); // Исправлено имя столбца
+        values.put(COLUMN_BOOKMARK_FOREIGN, updatedBookmark.fKeyBookId);
 
         String selection = COLUMN_ID + " = ?";
         String[] selectionArgs = { String.valueOf(bookmarkId) };
@@ -175,6 +175,23 @@ public class DataBase extends SQLiteOpenHelper {
         }
 
         return audioTrack;
+    }
+
+    public void updateChapters(int bookId, String newChapters) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CHAPTERS, newChapters);
+
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(bookId) };
+
+        int rowsAffected = db.update(TABLE_BOOKS, values, selection, selectionArgs);
+
+        if (rowsAffected == 0) {
+            System.out.println("No rows updated. Book ID might be incorrect.");
+        }
+
+        db.close();
     }
 
 

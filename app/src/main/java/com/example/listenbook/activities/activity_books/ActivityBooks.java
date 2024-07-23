@@ -8,6 +8,7 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -18,15 +19,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.documentfile.provider.DocumentFile;
 
 import com.example.listenbook.R;
-import com.example.listenbook.activities.PlayTrackActivity;
+import com.example.listenbook.activities.play_track_activity.PlayTrackActivity;
 import com.example.listenbook.entities.AudioItem;
 import com.example.listenbook.entities.Book;
 import com.example.listenbook.services.DataBase;
+import com.example.listenbook.services.NaturalOrderComparator;
 import com.example.listenbook.services.Permission;
+import com.example.listenbook.services.PermissionsCode;
 import com.example.listenbook.services.UserLearning;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class ActivityBooks extends AppCompatActivity {
@@ -45,7 +49,7 @@ public class ActivityBooks extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         int learningUser = sharedPreferences.getInt("LIBRARY_USER_LEARNING", 0);
-        if (learningUser <= 0) {
+        if (learningUser == 0) {
             editor.putInt("LIBRARY_USER_LEARNING",  UserLearning.learningUserLibrary(this));
             editor.apply();
         }
@@ -65,9 +69,7 @@ public class ActivityBooks extends AppCompatActivity {
 
         ImageButton addBook = findViewById(R.id.add_book);
         addBook.setOnClickListener(v -> {
-            permission.checkPermissions(this);
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-            startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+            permission.checkPermissions(this, PermissionsCode.REQUEST_CODE_PERMISSIONS_ADD_BOOK);
         });
     }
 
@@ -75,19 +77,38 @@ public class ActivityBooks extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 123) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-            } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)
-                    && ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                Toast.makeText(this, "This permission is needed", Toast.LENGTH_LONG).show();
-            } else {
-                permission.showSettingsDialog();
-            }
+
+        switch (requestCode) {
+            case PermissionsCode.REQUEST_CODE_PERMISSIONS_ADD_BOOK:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                    startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+                } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        && ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(this, "This permission is needed", Toast.LENGTH_LONG).show();
+                } else {
+                    permission.showSettingsDialog(this);
+                }
+                break;
+
+            case PermissionsCode.REQUEST_CODE_PERMISSIONS_RUN_BOOK:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Now you can add a book", Toast.LENGTH_LONG).show();
+                    BookAdapter.setBook(BookAdapter.audioTrackDeferred);
+                } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        && ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(this, "This permission is needed", Toast.LENGTH_LONG).show();
+                } else {
+                    permission.showSettingsDialog(this);
+                }
+                break;
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -102,7 +123,9 @@ public class ActivityBooks extends AppCompatActivity {
                 DocumentFile[] files = pickedDir.listFiles();
                 if (!dataBase.isUriExists(pickedDir.getUri().toString())) {
                     ArrayList<AudioItem> list = new ArrayList<>();
+                    int i = 1;
                     for (DocumentFile file : files) {
+                        Log.i("uri", file.getUri().toString());
                         String uri = file.getUri().getPathSegments().get(3);
                         retriever.setDataSource(this, file.getUri());
                         if (uri.contains("primary:")) {
@@ -111,14 +134,19 @@ public class ActivityBooks extends AppCompatActivity {
                             String[] parts = uri.split(":");
                             uri = "/storage/" + parts[0] + "/" + parts[1];
                         }
+                        String trackNumberStr = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER);
+                        int trackNumber = trackNumberStr != null ? Integer.parseInt(trackNumberStr) : i;
                         list.add(new AudioItem(
-                                Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER)),
+                                trackNumber,
+                                file.getName(),
                                 retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE), uri,
                                     Long.valueOf(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)),
                                                 0L));
+                        i++;
                     }
 
-                    list.sort(Comparator.comparingInt(AudioItem::getId));
+//                    list.sort(Comparator.comparingInt(AudioItem::getId));
+                    list.sort(new NaturalOrderComparator());
                     long bookDuration =0;
                     for (AudioItem item: list) {
                         item.positionInBook = bookDuration;
@@ -140,7 +168,6 @@ public class ActivityBooks extends AppCompatActivity {
             updateAdapter();
         }
     }
-
 
     public void updateAdapter() {
         ArrayList<Book> newList = (ArrayList<Book>) dataBase.getAllBooks();

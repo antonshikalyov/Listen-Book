@@ -84,7 +84,6 @@ public class BookmarkAdapter extends ArrayAdapter<Integer> {
             this.fKeys.remove(pos);
             notifyDataSetChanged();
             dialog.dismiss();
-            dialog.dismiss();
         });
 
         customLayout.findViewById(R.id.button_cancel).setOnClickListener(view -> {
